@@ -9,7 +9,7 @@ if ! [[ -x "$(command -v ${python_bin})" ]]; then
   python_bin="python"
 fi
 
-python_bin = "/opt/radix/vendor-latest/packages/python_3_8/install/bin/python3" 
+python_bin="/opt/radix/vendor-latest/packages/python_3_8/install/bin/python3" 
 # Ensure some version of virtualenv is installed
 # Lazy install avoids races between different jobs wanting different versions
 if [[ ! $(${python_bin} -m pip freeze) =~ "virtualenv==" ]]; then
