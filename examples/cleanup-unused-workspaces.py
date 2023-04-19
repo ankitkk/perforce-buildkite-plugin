@@ -42,6 +42,6 @@ if proceed:
     for client in unused_clients:
         clientname = client.get('client')
         try:
-            p4.run_client('-d', clientname)
+            p4.run_client('-f','-d', clientname)
         except:
             pass

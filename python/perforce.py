@@ -146,7 +146,7 @@ class P4Repo:
         
         # revert changes in client before saving to avoid an error if files are still open in client
         try:
-            self.perforce.run_revert('-w', '//...')
+            self.perforce.run_revert('//...')
         except P4Exception as ex:
             # client might not exist yet, or not have any changes in either case that's fine
             self.perforce.logger.warning("%s" % ex)
@@ -286,7 +286,7 @@ class P4Repo:
     def revert(self):
         """Revert any pending changes in the workspace"""
         self._setup_client()
-        self.perforce.run_revert('-w', '//...')
+        self.perforce.run_revert('//...')
         patched = self._read_patched()
         if patched:
             self.perforce.run_clean(patched)
