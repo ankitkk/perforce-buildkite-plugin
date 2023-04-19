@@ -4,11 +4,6 @@ set -eo pipefail
 plugin_root="${BASH_SOURCE%/*}/.."
 
 # Try to use explicit python3 if its installed
-python_bin="python3"
-if ! [[ -x "$(command -v ${python_bin})" ]]; then
-  python_bin="python"
-fi
-
 python_bin="/opt/radix/vendor-latest/packages/python_3_8/install/bin/python3" 
 # Ensure some version of virtualenv is installed
 # Lazy install avoids races between different jobs wanting different versions
@@ -18,7 +13,10 @@ fi
 
 # Unique virtualenv for requirements.txt
 venv_md5=$(md5sum "${plugin_root}/python/requirements.txt" | awk '{print $1}')
-venv_dir="${BUILDKITE_BUILD_CHECKOUT_PATH}/venv/perforce-plugin-venv-${venv_md5}"
+venv_dir=$(realpath "${BUILDKITE_BUILD_CHECKOUT_PATH}/../.perforce-plugin-venv-${venv_md5}")
+
+echo VENV is at ${venv_dir}
+
 platform=$(${python_bin} -c "import platform; print(platform.system())")
 if [[ "${platform}" == "Windows" ]]; then
   venv_python_bin="/Scripts/python"
