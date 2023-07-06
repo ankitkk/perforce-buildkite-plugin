@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eo pipefail
+echo '--- :house_with_garden: Setting up the environment'
+. space-dev-env.sh
+echo $(python --version) Ready.
+echo '--- :space_invader: Done.'
